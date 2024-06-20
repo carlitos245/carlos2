@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Effet Matrix</title>
+    <style>
+        body {
+            margin: 0;
+            overflow: hidden;
+            height: 100vh;
+        }
+        canvas {
+            display: block;
+            font-size: 24px;
+        }
+    </style>
+</head>
+<body>
+    <canvas id="matrixCanvas"></canvas>
+    <script>
+        const canvas = document.getElementById('matrixCanvas');
+        const ctx = canvas.getContext('2d');
+        const w = canvas.width = document.body.offsetWidth;
+        const h = canvas.height = document.body.offsetHeight;
+        const cols = Math.floor(w / 20) + 1;
+        const ypos = Array(cols).fill(0);
+        let interval; // Ajoutez cette ligne pour déclarer la variable interval
+
+        function matrix() {
+            ctx.fillStyle = 'rgba(0, 0, 0, 0.1)';
+            ctx.fillRect(0, 0, w, h);
+            ctx.fillStyle = '#0f0';
+            ctx.font = '12pt monospace';
+
+            //MESSAGE SUR LA MATRIX
+            //ctx.fillStyle = '#ff0000'; // Couleur du texte (rouge ici)
+            //ctx.font = 'bold 16px Arial'; // Police et taille du texte
+            ctx.fillText('Attention', 500, 300); // Texte et position (x, y)
+            ctx.fillText('VIRUS', 400, 400); // Texte et position (x, y)
+            ctx.fillText('VIRUS', 50, 50); // Texte et position (x, y)
+            ctx.fillText('virus', 1000, 50); // Texte et position (x, y)
+            ctx.fillText('VIRUS', 1000, 400); // Texte et position (x, y)
+
+
+            ypos.forEach((y, ind) => {
+                const text = String.fromCharCode(Math.random() * 128);
+                const x = ind * 20;
+                ctx.fillText(text, x, y);
+
+                if (y > 100 + Math.random() * 10000) {
+                    ypos[ind] = 0;
+                } else {
+                    ypos[ind] = y + 20;
+                }
+            });
+        }
+
+        // Démarre la boucle et stocke l'intervalle dans la variable interval
+        interval = setInterval(matrix, 50);
+        // Arrête la boucle après 5 secondes
+        setTimeout(() => clearInterval(interval), 5500);
+    </script>
+</body>
+</html>
